@@ -1,0 +1,17 @@
+body {
+  display: flex;
+  flex-direction: column;
+}
+.section {
+  display: flex;
+  gap: 10px;
+}
+.section {
+  flex-grow: 1;
+}
+.content {
+  flex: 2;
+}
+.sidebar {
+  flex: 1;
+}

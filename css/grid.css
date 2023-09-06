@@ -1,0 +1,11 @@
+body {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr auto;
+}
+.section {
+  display: grid;
+  column-gap: 10px;
+  grid-template-rows: 1fr;
+  grid-template-columns: 2fr 1fr;
+}

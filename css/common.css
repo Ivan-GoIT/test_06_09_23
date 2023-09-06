@@ -1,0 +1,50 @@
+html {
+  height: 100%;
+}
+
+body {
+  box-sizing: border-box;
+  height: 100%;
+  margin: 0;
+  padding: 20px 10px;
+}
+
+.uppercase-text {
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.header,
+.nav,
+.content,
+.sidebar,
+.footer {
+  border: 1px solid black;
+  text-align: center;
+}
+.header,
+.nav,
+.section,
+.footer {
+  margin: 0;
+}
+.header,
+.nav,
+.section {
+  margin-bottom: 20px;
+}
+
+.content,
+.sidebar {
+  position: relative;
+  > p {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+}
+
+
