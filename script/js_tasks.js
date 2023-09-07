@@ -12,24 +12,33 @@ const deepEqual_1 = (obj1, obj2) => {
   return str1 === str2;
 };
 
-
-
 /**
- * Сравнивает два объекта на глубокое равенство.
+ * Сравнивает два примитива или объекта на глубокое равенство.
  *
  * @param {Object} obj1 - Первый объект для сравнения.
  * @param {Object} obj2 - Второй объект для сравнения.
  * @returns {boolean} Возвращает true, если объекты равны, и false в противном случае.
  */
-const deepEqual_2 = (obj1, obj2) => {
+function deepEqual_2(obj1, obj2) {
+  if (obj1 === obj2) {
+    return true;
+  }
 
-    if(typeof obj1!==typeof obj2)return false
-  
-};
+  if (typeof obj1 !== 'object' || typeof obj2 !== 'object') {
+    return false;
+  }
 
-console.log(deepEqual_2({ name: 'test' }, { name: 'test' })); // output true
-console.log(deepEqual_2({ name: 'test' }, { name: 'test1' })); // output false
-console.log(
-  deepEqual_2({ name: 'test', data: { value: 1 } }, { name: 'test', data: { value: 2 } })
-); // output false
-console.log(deepEqual_2({ name: 'test' }, { name: 'test', age: 10 })); // false
+  const [keys1, keys2] = [Object.keys(obj1), Object.keys(obj2)];
+
+  if (keys1.length !== keys2.length) {
+    return false;
+  }
+
+  for (const key of keys1) {
+    if (!keys2.includes(key) || !deepEqual_2(obj1[key], obj2[key])) {
+      return false;
+    }
+  }
+
+  return true;
+}
