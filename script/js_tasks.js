@@ -29,3 +29,17 @@ function deepEqual_2(obj1, obj2) {
   return true;
 }
 
+/**
+ * Bозвращает итератор возвращающий части массива указанной длинны.
+ *
+ * @param {Array} arr - массив.
+ * @param {Object} length - Второй объект для сравнения.
+ * @returns {boolean} Возвращает true, если объекты равны, и false в противном случае.
+ */
+
+function* chunkArray(arr, chunkLength) {
+  for (let index = 0; index < arr.length; index += chunkLength) {
+    yield arr.slice(index, index + chunkLength);
+  }
+}
+
