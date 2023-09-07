@@ -43,3 +43,38 @@ function* chunkArray(arr, chunkLength) {
   }
 }
 
+const f1 = cb => {
+  cb(1);
+};
+const f2 = (a, cb) => {
+  cb(a);
+};
+const f3 = (a, b, cb) => {
+  setTimeout(() => cb([a, b]), 1000);
+};
+
+/**
+ * Выполняет массив функций асинхронно и возвращает promise, который разрешается,
+ * когда все функции завершатся.
+ *
+ * @param {Array<[Function, Array]>} functionsAndArgs - Массив пар, каждая из которых
+ *   содержит функцию и массив аргументов для выполнения этой функции.
+ * @returns {Promise<Array>} Promise, которое разрешается массивом результатов выполнения функций.
+ */
+function bulkRun(functionsAndArgs) {
+  const promises = functionsAndArgs.map(([fn, args]) => {
+    return new Promise(res => {
+      fn(...args, result => {
+        res(result);
+      });
+    });
+  });
+
+  return Promise.all(promises);
+}
+
+bulkRun([
+  [f1, []],
+  [f2, [2]],
+  [f3, [3, 4]],
+]).then(console.log);
