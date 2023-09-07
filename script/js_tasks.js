@@ -100,8 +100,8 @@ var arr = [
  * @returns {Object} Созданный объект на основе элементов массива.
  */
 function arrayToObject(arr) {
-  return arr.reduce((obj, item) => {
-    obj[item[0]] = Array.isArray(item[1]) ? arrayToObject(item[1]) : item[1];
+  return arr.reduce((obj, [key, val]) => {
+    obj[key] = Array.isArray(val) ? arrayToObject(val) : val;
     return obj;
   }, {});
 }
@@ -114,3 +114,32 @@ function arrayToObject(arr) {
 // 	css: 5,
 // 	js: 5
 // }
+
+
+/**
+ * Преобразует объект в массив, сохраняя структуру вложенных объектов.
+ *
+ * @param {Object} obj - Исходный объект, который нужно преобразовать в массив.
+ * @returns {Array} Массив, содержащий пары ключ-значение из объекта. Если значение
+ *   в паре является объектом, оно также будет преобразовано в массив рекурсивно.
+ */
+function objectToArray(obj) {
+  return Object.entries(obj).map(([key, val]) => {
+    if (typeof val === 'object' && !Array.isArray(val)) {
+      return [key, objectToArray(val)];
+    }
+    return [key, val];
+  });
+}
+
+// objectToArray({
+//   name: 'developer',
+//   age: 5,
+//   skills: {
+//     html: 4,
+//     css: 5,
+//     js: 5,
+//   },
+// });
+
+// Outputs: [['name', 'developer'], ['age', 5], ['skills', [['html', 4], ['css', 5], ['js', 5]]]
