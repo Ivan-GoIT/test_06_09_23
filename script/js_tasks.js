@@ -73,8 +73,44 @@ function bulkRun(functionsAndArgs) {
   return Promise.all(promises);
 }
 
-bulkRun([
-  [f1, []],
-  [f2, [2]],
-  [f3, [3, 4]],
-]).then(console.log);
+// bulkRun([
+//   [f1, []],
+//   [f2, [2]],
+//   [f3, [3, 4]],
+// ]).then(console.log);
+
+var arr = [
+  ['name', 'developer'],
+  ['age', 5],
+  [
+    'skills',
+    [
+      ['html', 4],
+      ['css', 5],
+      ['js', 5],
+    ],
+  ],
+];
+
+/**
+ * Преобразует массив в объект, используя элементы массива в качестве пар ключ-значение.
+ * Если значение в паре является массивом, оно также будет преобразовано в объект рекурсивно.
+ *
+ * @param {Array} arr - Массив, содержащий пары ключ-значение для создания объекта.
+ * @returns {Object} Созданный объект на основе элементов массива.
+ */
+function arrayToObject(arr) {
+  return arr.reduce((obj, item) => {
+    obj[item[0]] = Array.isArray(item[1]) ? arrayToObject(item[1]) : item[1];
+    return obj;
+  }, {});
+}
+//console.log(arrayToObject(arr));
+// Outputs: {
+// name: 'developer',
+// age: 5,
+// skills: {
+// 	html: 4,
+// 	css: 5,
+// 	js: 5
+// }
