@@ -143,4 +143,38 @@ function reliableMultiply(a, b) {
   }
 }
 
-console.log(reliableMultiply(8, 8));
+// console.log(reliableMultiply(8, 8));
+
+const obj = {
+  a: {
+    b: {
+      c: 12,
+      d: 'Hello World',
+    },
+    e: [1, 2, 3],
+  },
+};
+
+
+/**
+ * Преобразует вложенный объект в плоскую карту с разделителями '/'.
+ *
+ * @param {Object} obj - Исходный объект для преобразования.
+ * @returns {Object} Плоская карта с разделителями '/'.
+ */
+function mapObject(obj) {
+  return Object.entries(obj).reduce((acc, [key, val]) => {
+    if (typeof val === 'object' && !Array.isArray(val) && val !== null) {
+      const nestedObj = mapObject(val);
+      Object.keys(nestedObj).forEach(nestedObjKey => {
+        acc[`${key}/${nestedObjKey}`] = nestedObj[nestedObjKey];
+      });
+    } else {
+      acc[key] = obj[key];
+    }
+    return acc;
+  }, {});
+}
+console.log(mapObject(obj));
+
+
