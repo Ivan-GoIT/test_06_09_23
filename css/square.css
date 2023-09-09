@@ -1,0 +1,30 @@
+.square {
+  width: 100px;
+  height: 100px;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: red;
+  animation: rotateColor 4s linear infinite normal;
+}
+
+@keyframes rotateColor {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+    background-color: red;
+  }
+  33% {
+    transform: translate(-50%, -50%) rotate(120deg);
+    background-color: orange;
+  }
+  66% {
+    transform: translate(-50%, -50%) rotate(240deg);
+    background-color: green;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+    background-color: red;
+  }
+}
