@@ -103,3 +103,44 @@ function objectToArray(obj) {
   });
 }
 
+function NotificationException() {}
+function ErrorException() {}
+function primitiveMultiply(a, b) {
+  const rand = Math.random();
+  if (rand < 0.5) {
+    return a * b;
+  } else if (rand > 0.85) {
+    throw new ErrorException();
+  } else {
+    throw new NotificationException();
+  }
+}
+
+/**
+ * Умножает два числа надежно, пытаясь выполнить операцию несколько раз
+ * в случае возникновения исключения NotificationException, но прекращает
+ * выполнение и выбрасывает исключение ErrorException при других исключениях.
+ *
+ * @param {number} a - Первое число для умножения.
+ * @param {number} b - Второе число для умножения.
+ * @returns {number} Результат умножения a и b, если успешно.
+ * @throws {ErrorException} Если возникает исключение типа ErrorException.
+ */
+function reliableMultiply(a, b) {
+  try {
+    return primitiveMultiply(a, b);
+  } catch (err) {
+    switch (true) {
+      case err instanceof NotificationException:
+        return reliableMultiply(a, b);
+
+      case err instanceof ErrorException:
+        throw err;
+
+      default:
+        throw err;
+    }
+  }
+}
+
+console.log(reliableMultiply(8, 8));
