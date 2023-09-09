@@ -155,7 +155,6 @@ const obj = {
   },
 };
 
-
 /**
  * Преобразует вложенный объект в плоскую карту с разделителями '/'.
  *
@@ -175,6 +174,37 @@ function mapObject(obj) {
     return acc;
   }, {});
 }
-console.log(mapObject(obj));
+//console.log(mapObject(obj));
 
+function combos(num) {
+  const resArr = [];
+  //покумекать!!!!!!!!!!!!!!!!1
+}
 
+/**
+ * Функция, создающая цепочку функций для последовательного добавления чисел.
+ *
+ * @param {number} num - Первое число в цепочке.
+ * @returns {function} Функция, которая принимает следующее число для добавления и возвращает
+ * новую функцию для продолжения цепочки.
+ */
+function add(num) {
+  let sum = num;
+
+  /**
+   * Функция для добавления следующего числа и продолжения цепочки.
+   *
+   * @param {number} nextNum - Следующее число для добавления.
+   * @returns {function} Новая функция для продолжения цепочки.
+   */
+  const addNextNum = nextNum => {
+    sum += nextNum;
+    return addNextNum;
+  };
+
+  addNextNum.valueOf = () => sum;
+  addNextNum.toString = () => `${sum}`;
+
+  return addNextNum;
+}
+console.log(Number(add(1)(2)(5))); // 8
