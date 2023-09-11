@@ -176,9 +176,24 @@ function mapObject(obj) {
 }
 //console.log(mapObject(obj));
 
+
+/**
+ * Генерирует массивы, сумма элементов которых равна заданному числу.
+ *
+ * @param {number} num - Целевое число, сумма элементов массивов.
+ * @returns {number[][]} - Массив массивов положительных целых чисел, сумма каждого массива равна `num`.
+ */
 function combos(num) {
   const result = [];
+  if (num < 0) return result;
 
+  /**
+   * Рекурсивная функция для генерации комбинаций.
+   *
+   * @param {number} sum - Текущая сумма элементов.
+   * @param {number[]} resArr - Текущий массив элементов.
+   * @param {number} startIndex - Начальный индекс для генерации.
+   */
   const createArr = (sum, resArr, startIndex = 1) => {
     if (sum === num) {
       result.push([...resArr]);
@@ -201,7 +216,7 @@ function combos(num) {
 }
 
 //console.log( combos(5));
-console.log(combos(10));
+//console.log(combos(10));
 
 /**
  * Функция, создающая цепочку функций для последовательного добавления чисел.
