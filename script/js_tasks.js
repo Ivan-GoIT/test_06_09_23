@@ -178,53 +178,30 @@ function mapObject(obj) {
 
 function combos(num) {
   const result = [];
-  const tmpArr = new Array(num).fill(1);
 
-  const sumOfArrElements = arr =>
-    arr.reduce((acc, item) => {
-      return (acc += item);
-    }, 0);
+  const createArr = (sum, resArr, startIndex = 1) => {
+    if (sum === num) {
+      result.push([...resArr]);
+    }
 
-  const createArr = ([...arr]) => {
-    const length = arr.length;
-    const lastIndex = length - 1;
-
-    if (length === 1) return arr;
-    if (length > 1)
-      for (let index = lastIndex; index > 1; index--) {
-        if (arr[index] === arr[index - 1]) {
-          arr[index] += 1;
-          arr.shift();
-          console.log('arrarr', arr);
-          break;
-        }
+    for (let i = startIndex; i <= num; i++) {
+      if (sum + i <= num) {
+        resArr.push(i);
+        createArr(sum + i, resArr, i);
+        resArr.pop();
+      } else {
+        break;
       }
-
-    return arr;
+    }
   };
 
-  const fillresultFunk = ([...arr], [...res]) => {
-    const newArr = createArr(arr);
-    if (!res.includes(newArr)) res.push(newArr);
-    if (newArr.length === 1) return;
-    fillresultFunk(newArr, res);
-    return res;
-  };
-
-  result = [...fillresultFunk(tmpArr, result)];
-
-  // const newResultItem = createArr(tmpArr);
-  // if (sumOfArrElements(newResultItem) === num) result.push(newResultItem);
-
-  console.log('tmpArr', tmpArr);
-  // console.log('sumOfArrElements', sumOfArrElements(tmpArr));
+  createArr(0, []);
 
   return result;
 }
 
-// Примеры использования функции combos
-console.log('combos(6)', combos(5));
-// console.log(combos(10));
+//console.log( combos(5));
+console.log(combos(10));
 
 /**
  * Функция, создающая цепочку функций для последовательного добавления чисел.
